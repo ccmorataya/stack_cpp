@@ -1,3 +1,8 @@
+//  Cristian Baudilio Morataya Arriola
+//  5990-11-3777
+//  Programación 3
+//  Sección "C"
+
 #include <iostream>
 
 using namespace std;
