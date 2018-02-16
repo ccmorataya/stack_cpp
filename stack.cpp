@@ -2,12 +2,14 @@
 
 using namespace std;
 
-int stack[14];
+const int stackLength = 4;
+
+int stack[stackLength];
 int index = 0;
 
 bool stackIsFull()
 {
-    if (index == 14)
+    if (index >= stackLength)
         return true;
     else
         return false;
@@ -17,17 +19,42 @@ void push(int number)
 {
     stack[index] = number;
     index++;
-    cout << "Ingresado el número " << number << endl;
+    cout << "/////////////////////////////////////////" << endl;
+    cout << "\tIngresado el número " << number << endl;
+    cout << "/////////////////////////////////////////" << endl;
 }
 
 void pop()
 {
-    cout << "call pop()" << endl;
+    if (index > 0) {
+        cout << "/////////////////////////////////////////" << endl;
+        cout << "\tRetirado el elemento " << stack[index - 1] << endl;
+        cout << "/////////////////////////////////////////" << endl;
+        index--;
+    }
+    else{
+        cout << "*****************************************" << endl;
+        cout << "   !!! NO HAY ELEMENTOS A RETIRAR !!!" << endl;
+        cout << "*****************************************" << endl;
+    }
 }
 
 void showStack()
 {
-    cout << "call showStack()" << endl;
+    if (index == 0) {
+        cout << "*****************************************" << endl;
+        cout << "\t !!! PILA VACIA !!!" << endl;
+        cout << "*****************************************" << endl;
+    } else {
+        cout << endl
+             << "Inspección de la pila" << endl
+             << endl;
+        cout << "|---------------------------------------|" << endl;
+        for (int i = index - 1; i >= 0; i--) {
+            cout << "|\tElemento " << i << " de la pila: " << stack[i] << "\t|" << endl;
+            cout << "|---------------------------------------|" << endl;
+        }
+    }
 }
 
 int main()
@@ -36,15 +63,18 @@ int main()
 
     if (!desa) {
         while (true) {
-            cout << "Simulación de pila:\n"
+            cout << endl
+                 << "Simulación de pila:\n"
                  << endl;
             cout << "Elige una opción:" << endl;
             cout << "1. Push" << endl;
             cout << "2. Pop" << endl;
             cout << "3. Mostrar pila" << endl;
-            cout << "4. Salir" << endl;
+            cout << "4. Salir" << endl
+                 << endl;
             int option = -1;
             int number;
+            cout << "Opcion: ";
             cin >> option;
 
             if (option == 1) {
@@ -59,6 +89,8 @@ int main()
                 showStack();
             else if (option == 4)
                 return 0;
+            else
+                cout << "Opción invalida, intenta de nuevo.";
         }
     } else {
         cout << (index);
