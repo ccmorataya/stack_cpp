@@ -83,6 +83,11 @@ int main()
                     cin >> number;
                     push(number);
                 }
+                else {
+                    cout << "*****************************************" << endl;
+                    cout << "\t !!! PILA LLENA !!!" << endl;
+                    cout << "*****************************************" << endl;
+                }
             } else if (option == 2)
                 pop();
             else if (option == 3)
