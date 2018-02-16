@@ -2,6 +2,9 @@
 //  5990-11-3777
 //  Programación 3
 //  Sección "C"
+//  Año 2018
+//  Universidad Mariano Gálvez de Guatemala
+//  Sede Chinautla
 
 #include <iostream>
 
