@@ -13,7 +13,7 @@ using namespace std;
 struct customer{
     int value;
     int ticket;
-} customers[15];
+} customers[14];
 
 int main(){
     cout << "Menú principal:" << endl;
