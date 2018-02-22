@@ -18,5 +18,8 @@ struct customer{
 } customers[structLength];
 
 int main(){
-    cout << "Menú principal:" << endl;
+    cout << "=========================================" << endl;
+    cout << "\tMenú principal" << endl;
+    cout << "=========================================" << endl;
+    cout << "Elige una opción:" << endl;
 }
