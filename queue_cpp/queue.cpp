@@ -22,4 +22,8 @@ int main(){
     cout << "\tMenú principal" << endl;
     cout << "=========================================" << endl;
     cout << "Elige una opción:" << endl;
+    cout << "1. Ingresar un cliente" << endl;
+    cout << "2. Atender a cliente" << endl;
+    cout << "3. Mostrar cola" << endl;
+    cout << "4. Salir" << endl;
 }
