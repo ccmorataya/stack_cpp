@@ -10,10 +10,12 @@
 
 using namespace std;
 
+const int structLength = 14;
+
 struct customer{
     int value;
     int ticket;
-} customers[14];
+} customers[structLength];
 
 int main(){
     cout << "Menú principal:" << endl;
