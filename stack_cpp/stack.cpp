@@ -10,7 +10,7 @@
 
 using namespace std;
 
-const int stackLength = 15;
+const int stackLength = 14;
 
 int stack[stackLength];
 int index = 0;
