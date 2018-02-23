@@ -29,5 +29,16 @@ int main()
         cout << "2. Atender a cliente" << endl;
         cout << "3. Mostrar cola" << endl;
         cout << "4. Salir" << endl;
+	cout << "Opción: ";
+	cin >> option;
+
+	if (option == 1){
+	}
+	else if (option == 4){
+	    return 0;
+	}
+	else{
+	    cout << "Opción invalida, intenta de nuevo" << endl;
+	}
     }
 }
