@@ -17,6 +17,16 @@ struct customer {
     int ticket;
 } customers[structLength];
 
+// CM: Check if the queue is full
+bool fullQueue(){
+    return false;
+}
+
+// CM: Check if the queue is empty
+bool emptyQueue(){
+    return false;
+}
+
 int main()
 {
     int option = -1;
