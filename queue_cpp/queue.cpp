@@ -11,6 +11,7 @@
 using namespace std;
 
 const int structLength = 14;
+int emptyPosition = -1;
 
 struct customer {
     int value;
@@ -18,13 +19,21 @@ struct customer {
 } customers[structLength];
 
 // CM: Check if the queue is full
-bool fullQueue(){
-    return false;
+bool queueIsFull(){
+    for (int i = 0; i <= structLength; i++){
+        if (customer[i].ticket == -1){
+           emptyPosition = i;
+           return false;
+        }
+        return true;
+    }
 }
 
-// CM: Check if the queue is empty
-bool emptyQueue(){
-    return false;
+void emptyQueue(){
+    for (int i = 0; i <= structLength; i++) {
+        customer[i].ticket = -1;
+        customer[i].value = -1;
+    }
 }
 
 int main()
@@ -43,6 +52,10 @@ int main()
 	cin >> option;
 
 	if (option == 1){
+        if (!queueIsFull()){
+            cout << "Ingresa el valor para el cliente " << emptyPosition << endl;
+            cin << customers[emptyPosition];
+        }
 	}
 	else if (option == 4){
 	    return 0;
