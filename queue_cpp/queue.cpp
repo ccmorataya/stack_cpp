@@ -56,6 +56,9 @@ int main()
             cout << "Ingresa el valor para el cliente " << emptyPosition << endl;
             cin << customers[emptyPosition];
         }
+        else {
+            cout << "Cola llena!";
+        }
 	}
 	else if (option == 4){
 	    return 0;
