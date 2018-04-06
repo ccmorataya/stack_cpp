@@ -5,7 +5,8 @@ using namespace std;
 
 struct asiento{
     int numeroAsiento;
-    char nombrePasajero[];
+    bool estaOcupado;
+    char departamentoAvisitar[];
     struct asiento *asientoAnterior;
     struct asiento *asientoSiguiente;
 };
