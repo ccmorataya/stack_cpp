@@ -41,7 +41,12 @@ void loadPassengers(){
     for (int i = 1; i <= seatsOcuppied; i++){
         int seatToFill = randomizeSeat(listLength); seatToFill--;
         if (!bus[seatToFill].isOccupied){
-
+            bus[seatToFill].isOccupied = true;
+            bus[seatToFill].departmentToVisit = randomizeSeat(22);
+            if (bus[seatToFill].seatNumber == 1)
+                bus[seatToFill]->prevSeat = NULL;
+            if (bus[seatToFill].seatNumber == listLength)
+                bus[seatToFill]->prevSeat = ptrRecorrido;
         }
     }
     passengersLoaded = true;
@@ -62,6 +67,10 @@ int main(){
             if (!passengersLoaded){
                 clear();
                 loadPassengers();
+            }
+            else{
+                clear();
+                printf("El autobus ya se encuentra cargado");
             }
         }
         else if(option == 5){
