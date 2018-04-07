@@ -17,6 +17,7 @@ struct seat{
 };
 
 struct seat bus[listLength];
+struct seat *ptrBus = bus;
 
 void numberSeats(){
     for (int i = 0; i < listLength-1; i++){
