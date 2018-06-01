@@ -153,3 +153,7 @@ void deleteNode(avl* &tree, int n){
         deleteNode(tree->right, n);
     }
 }
+
+int main(){
+
+}
