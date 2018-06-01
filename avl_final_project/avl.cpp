@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <iostream>
+
+using namespace std;
 
 typedef struct avl{
     int number;
@@ -110,12 +113,6 @@ void insert(int n, bool &increase, avl* &tree){
     }
 }
 
-// CM: include in main
-void Insertar(avl* &tree, int n){
-    bool increase;
-    insert(n, increase, tree);
-}
-
 bool isEmpty(avl* tree){
     return tree == NULL;
 }
@@ -154,6 +151,32 @@ void deleteNode(avl* &tree, int n){
     }
 }
 
-int main(){
+int main()
+{
+    int nodeValue = -1;
+    int option = -1;
+    struct avl AVL;
+    while (true) {
+        cout << "=========================================" << endl;
+        cout << "\tMenú principal" << endl;
+        cout << "=========================================" << endl;
+        cout << "Elige una opción:" << endl;
+        cout << "1. Ingresar nodo" << endl;
+        cout << "2. Buscar nodo" << endl;
+        cout << "3. Eliminar nodo" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Opción: ";
+        cin >> option;
 
+        if (option == 1) {
+            cout << "Ingresa el valor del nodo: " << endl;
+            cin >> nodeValue;
+            bool increase;
+            insert(nodeValue, increase, AVL);
+        } else if (option == 4) {
+            return 0;
+        } else {
+            cout << "Opción invalida, intenta de nuevo" << endl;
+        }
+    }
 }
