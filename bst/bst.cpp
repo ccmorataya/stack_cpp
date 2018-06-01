@@ -33,6 +33,18 @@ void Insert(node **tree, char letter){
     }
 }
 
+void PrintTree(node *tree){
+    if (*tree == NULL){
+        printf(" - ");
+    }
+    else {
+        PrintTree((*tree)->left);
+        printf(" [ %s ", (*tree)->letter);
+        PrintTree((*tree)->right);
+        printf(" ] ");
+    }
+}
+
 int main(){
     node *arbol = NULL;
     Insert(&arbol, 'M');
