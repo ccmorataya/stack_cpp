@@ -1,105 +1,107 @@
 #include <stdio.h>
 
-typedef struct AVL{
-    int dato, FB; // FB es la altura del subarbol izquierdo menos la altura del subarbol derecho
-    AVL *izq, *der;
-    bool borrado;
-} AVL;
+typedef struct avl{
+    int number;
+    int balanceFactor; 
+    avl *left, *right;
+    bool deleted;
+} avl;
 
-void rotarLL(AVL* &A){ //precond: el árbol necesita una rotacion LL
-    AVL* aux = A->izq->der;
-    A->izq->der = A;
-    A->izq->FB = 0; 
-    AVL* aux2 = A->izq;
-    A->izq = aux;
-    A->FB = 0;
-    A = aux2;
+void rotateLeftLeft(avl* &tree){
+    avl* aux = tree->left->right;
+    tree->left->right = tree;
+    tree->left->balanceFactor = 0; 
+    avl* aux2 = tree->left;
+    tree->left = aux;
+    tree->balanceFactor = 0;
+    tree = aux2;
 }
 
-void rotarRR(AVL* &A){ //precond: el árbol necesita una rotacion RR
-    AVL* aux = A->der->izq;
-    A->der->izq = A;
-    A->der->FB = 0; 
-    AVL* aux2 = A->der;
-    A->der = aux;
-    A->FB = 0;
-    A = aux2;
+void rotateRightRight(avl* &tree){
+    avl* aux = tree->right->left;
+    tree->right->left = tree;
+    tree->right->balanceFactor = 0; 
+    avl* aux2 = tree->right;
+    tree->right = aux;
+    tree->balanceFactor = 0;
+    tree = aux2;
 }
 
-void rotarLRalter(AVL* &A){ //precond: el árbol necesita una rotacion LR
-    rotarRR(A->izq);
-    rotarLL(A);
+void rotateLeftRight(avl* &tree){
+    rotateRightRight(tree->left);
+    rotateLeftLeft(tree);
 }
 
-void rotarRLalter(AVL* &A){ //precond: el árbol necesita una rotacion RL
-    rotarLL(A->der);
-    rotarRR(A);
+void rotateRightLeft(avl* &tree){
+    rotateLeftLeft(tree->right);
+    rotateRightRight(tree);
 }
 
-AVL* Crear(){
+avl* create(){
     return NULL;
 }
 
-void Insert(int n, bool &aumento, AVL* &A){
-    if (A == NULL){
-        A = new AVL;
-        A->dato = n;
-        A->FB = 0;
-        A->izq = NULL;
-        A->der = NULL;
-        aumento = true;
-        A->borrado = false;
+// CM: change int n for string value or whatever
+void insert(int n, bool &increase, avl* &tree){
+    if (tree == NULL){
+        tree = new avl;
+        tree->number = n;
+        tree->balanceFactor = 0;
+        tree->left = NULL;
+        tree->right = NULL;
+        increase = true;
+        tree->deleted = false;
     }
     else {
-        if (n < A->dato){           
-            Insert(n, aumento, A->izq);         
-            if (aumento){
-                switch (A->FB){
+        if (n < tree->number){           
+            insert(n, increase, tree->left);         
+            if (increase){
+                switch (tree->balanceFactor){
                     case -1:{
-                        A->FB = 0;
-                        aumento = false;
+                        tree->balanceFactor = 0;
+                        increase = false;
                         break;
                     }
                     case 0:{
-                        A->FB = 1;
-                        aumento = true;
+                        tree->balanceFactor = 1;
+                        increase = true;
                         break;
                     }
                     case 1:{
-                        if (A->izq->FB == 1){ // Si es 1 necesita una rotacion LL si es -1 necesita una rotacion LR
-                            rotarLL(A);
+                        if (tree->left->balanceFactor == 1){
+                            rotateLeftLeft(tree);
                         }
                         else {
-                            rotarLRalter(A);
+                            rotateLeftRight(tree);
                         }
-                        aumento = false;
+                        increase = false;
                         break;
                     }
                 }
             }
         }
         else {
-            Insert(n, aumento, A->der);         
-            if (aumento){
-                switch (A->FB){
+            insert(n, increase, tree->right);         
+            if (increase){
+                switch (tree->balanceFactor){
                     case -1:{
-                        if (A->der->FB == 1){ // Si es 1 necesita una rotacion RL si es -1 necesita una rotacion RR
-                            rotarRLalter(A);
+                        if (tree->right->balanceFactor == 1){
+                            rotateRightLeft(tree);
                         }
                         else {
-                            rotarRR(A);
+                            rotateRightRight(tree);
                         }
-                            aumento = false;                        
+                            increase = false;                        
                         break;
                     }
                     case 0:{
-                        A->FB = -1;
-                        aumento = true;
+                        tree->balanceFactor = -1;
+                        increase = true;
                         break;
                     }
                     case 1:{
-                        A->FB = 0;
-                        aumento = false;
+                        tree->balanceFactor = 0;
+                        increase = false;
                         break;
                     }
                 }
@@ -108,45 +110,46 @@ void Insert(int n, bool &aumento, AVL* &A){
     }
 }
 
-void Insertar(AVL* &A, int n){
-    bool aumento;
-    Insert(n, aumento, A);
+// CM: include in main
+void Insertar(avl* &tree, int n){
+    bool increase;
+    insert(n, increase, tree);
 }
 
-bool EsVacio(AVL* A){
-    return A == NULL;
+bool isEmpty(avl* tree){
+    return tree == NULL;
 }
 
-bool Pertenece(AVL* A, int n){
-    if (A == NULL){
+bool find(avl* tree, int n){
+    if (tree == NULL){
         return false;
     }
     else {
-        if (A->dato == n){
-            if (A->borrado){
+        if (tree->number == n){
+            if (tree->deleted){
                 return false;
             }
             else {
                 return true;
             }
         }
-        else if (n < A->dato){     
-            return Pertenece(A->izq, n);
+        else if (n < tree->number){     
+            return find(tree->left, n);
         }
         else {
-            return Pertenece(A->der, n);
+            return find(tree->right, n);
         }       
     }
 }
 
-void Borrar(AVL* &A, int n){
-    if (A->dato == n){
-        A->borrado = true;
+void deleteNode(avl* &tree, int n){
+    if (tree->number == n){
+        tree->deleted = true;
     }
-    else if (n < A->dato){     
-        Borrar(A->izq, n);
+    else if (n < tree->number){     
+        deleteNode(tree->left, n);
     }
     else {
-        Borrar(A->der, n);
+        deleteNode(tree->right, n);
     }
 }
