@@ -6,7 +6,7 @@ using namespace std;
 typedef struct avl{
     int number;
     int balanceFactor; 
-    avl *left, *right;
+    struct avl *left, *right;
     bool deleted;
 } avl;
 
@@ -38,10 +38,6 @@ void rotateLeftRight(avl* &tree){
 void rotateRightLeft(avl* &tree){
     rotateLeftLeft(tree->right);
     rotateRightRight(tree);
-}
-
-avl* create(){
-    return NULL;
 }
 
 // CM: change int n for string value or whatever
@@ -113,10 +109,6 @@ void insert(int n, bool &increase, avl* &tree){
     }
 }
 
-bool isEmpty(avl* tree){
-    return tree == NULL;
-}
-
 bool find(avl* tree, int n){
     if (tree == NULL){
         return false;
@@ -155,7 +147,7 @@ int main()
 {
     int nodeValue = -1;
     int option = -1;
-    struct avl AVL;
+    struct avl *AVLptr = NULL;
     while (true) {
         cout << "=========================================" << endl;
         cout << "\tMenú principal" << endl;
@@ -172,8 +164,24 @@ int main()
             cout << "Ingresa el valor del nodo: " << endl;
             cin >> nodeValue;
             bool increase;
-            insert(nodeValue, increase, AVL);
-        } else if (option == 4) {
+            insert(nodeValue, increase, AVLptr);
+        }
+        else if (option == 2){
+            cout << "Ingresa el valor del nodo a buscar: " << endl;
+            cin >> nodeValue;
+            if (find(AVLptr, nodeValue)){
+                cout << "Nodo encontrado" << endl;
+            }
+            else{
+                cout << "Nodo no encontrado" << endl;
+            }
+        }
+        else if (option == 3){
+            cout << "Ingresa el valor del nodo a eliminar: " << endl;
+            cin >> nodeValue;
+            deleteNode(AVLptr, nodeValue);
+        }
+        else if (option == 4) {
             return 0;
         } else {
             cout << "Opción invalida, intenta de nuevo" << endl;
